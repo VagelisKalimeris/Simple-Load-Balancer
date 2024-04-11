@@ -5,9 +5,15 @@ from src.load_balancer import LoadBalancer
 from src.server import Server
 from src.work_queue import WorkQueue
 
+"""
+Script puts both existing scheduling policies through an example execution flow.
+"""
 
 # Create a queue
 queue = WorkQueue(Event())
+
+
+"""ROUND ROBIN EXAMPLE"""
 
 # Add some tasks to queue
 for i in range(9):
@@ -26,6 +32,9 @@ sleep(1)
 
 # Stop all threads execution
 queue.stop_threads()
+
+
+"""RANDOM CHOICE EXAMPLE"""
 
 # Add new tasks to queue
 for i in range(9):
