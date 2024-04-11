@@ -2,7 +2,7 @@ from enum import Enum, auto
 from random import choice
 from threading import Thread
 
-from src.work_queue import WorkQueue
+from .work_queue import WorkQueue
 
 
 class LoadBalancer(Thread):
