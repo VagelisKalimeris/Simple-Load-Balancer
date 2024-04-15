@@ -10,6 +10,7 @@ class LoadBalancer(Thread):
     Instance schedules given queue's server threads according to selected policy.
     """
     class Policy(Enum):
+        """Restricts user input to existing policy implementations."""
         round_robin = auto()
         random_choice = auto()
 

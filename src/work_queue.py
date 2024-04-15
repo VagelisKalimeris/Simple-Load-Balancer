@@ -30,6 +30,7 @@ class WorkQueue:
         return next_task
 
     def set_next_worker(self, sid):
+        """Sets server id destined to receive next task."""
         with self.lock:
             if self.next_sid is None:
                 self.next_sid = sid
@@ -42,7 +43,7 @@ class WorkQueue:
             self.event.set()
 
     def re_enable(self):
-        """Notifies any threads working with queue, to terminate."""
+        """Enables queue to be re-used after previous shutdown event."""
         with self.lock:
             self.event.clear()
             self.next_sid = None
