@@ -68,5 +68,11 @@ class TestWorkQueue:
         assert_that(test_queue.check_end()).is_equal_to(True)
 
     def test_re_enable(self, test_queue):
-        # todo: Implement this
-        pass
+        # Stop execution
+        test_queue.stop_threads()
+
+        # Re-enable execution
+        test_queue.re_enable()
+
+        # Verify un-stopped state
+        assert_that(test_queue.check_end()).is_equal_to(False)

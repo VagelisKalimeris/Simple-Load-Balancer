@@ -16,7 +16,7 @@ class LoadBalancer(Thread):
 
     def __init__(self, wq: WorkQueue, server_count: int, policy: Policy):
         self.serve = 0
-        self.server_num = server_count
+        self.server_num = server_count  # todo: replace with server list
         self.wq = wq
         self.stop = False
         self.policy = policy
