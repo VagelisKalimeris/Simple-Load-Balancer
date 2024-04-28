@@ -6,7 +6,7 @@ from src.load_balancer import LoadBalancer
 
 class TestLoadBalancer:
     @pytest.mark.parametrize('policy', [LoadBalancer.Policy.round_robin, LoadBalancer.Policy.random_choice])
-    def test_load_balancer_policies(self, test_queue, create_tasks, create_servers, policy):
+    def test_load_balancer_policies(self, test_queue, create_tasks, create_servers, policy) -> None:
         # Start load balancer
         LoadBalancer(test_queue, 3, policy).start()
 

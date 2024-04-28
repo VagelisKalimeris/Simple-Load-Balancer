@@ -7,13 +7,13 @@ class Server(Thread):
     """
     Creates individual server threads that synchronize using given queue and consume its tasks.
     """
-    def __init__(self, sid: int, wq: WorkQueue):
+    def __init__(self, sid: int, wq: WorkQueue) -> None:
         self.id = sid
         self.wq = wq
 
         Thread.__init__(self)
 
-    def run(self):
+    def run(self) -> None:
         while True:
             if self.wq.check_end():
                 # Execution is over, kill thread
