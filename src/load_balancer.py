@@ -14,9 +14,9 @@ class LoadBalancer(Thread):
         round_robin = auto()
         random_choice = auto()
 
-    def __init__(self, wq: WorkQueue, server_count: int, policy: Policy):
+    def __init__(self, wq: WorkQueue, server_count: int, policy: Policy) -> None:
         self.serve = 0
-        self.server_num = server_count
+        self.server_num = server_count  # todo: replace with server list
         self.wq = wq
         self.stop = False
         self.policy = policy
@@ -24,14 +24,14 @@ class LoadBalancer(Thread):
 
         Thread.__init__(self)
 
-    def run(self):
+    def run(self) -> None:
         while True:
             if self.wq.check_end():
                 break
 
             self.schedulers[self.policy.value - 1]()
 
-    def round_robin(self):
+    def round_robin(self) -> None:
         """Round-robin policy, schedules next server in a clockwise manner."""
         if self.wq.set_next_worker(self.serve):
             # Cycle through server ids
@@ -39,7 +39,7 @@ class LoadBalancer(Thread):
             if self.serve == self.server_num:
                 self.serve = 0
 
-    def random_choice(self):
+    def random_choice(self) -> None:
         """Random choice policy, schedules next server randomly."""
         if self.wq.set_next_worker(self.serve):
             self.serve = choice([x for x in range(0, self.server_num) if x != self.serve])

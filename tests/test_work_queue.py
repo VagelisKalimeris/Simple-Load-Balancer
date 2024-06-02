@@ -1,19 +1,20 @@
 from assertpy import assert_that
+from src.work_queue import WorkQueue
 
 
 class TestWorkQueue:
-    def test_task_queue_is_empty(self, test_queue):
+    def test_task_queue_is_empty(self, test_queue: WorkQueue) -> None:
         # Verify task queue is empty by default
         assert_that(test_queue.get_tasks_num()).is_equal_to(0)
 
-    def test_add_task(self, test_queue):
+    def test_add_task(self, test_queue: WorkQueue) -> None:
         # Add a task to queue
         test_queue.add_task('test_task')
 
         # Verify task queue is NOT empty
         assert_that(test_queue.get_tasks_num()).is_equal_to(1)
 
-    def test_get_task_for_enabled_sid(self, test_queue):
+    def test_get_task_for_enabled_sid(self, test_queue: WorkQueue) -> None:
         # Add a task to queue
         test_queue.add_task('test_task')
 
@@ -26,25 +27,25 @@ class TestWorkQueue:
         # Verify NO task is left to consume
         assert_that(test_queue.get_task_for_sid(0)).is_equal_to(None)
 
-    def test_get_task_for_not_enabled_sid(self, test_queue):
+    def test_get_task_for_not_enabled_sid(self, test_queue: WorkQueue) -> None:
         # Add a task to queue
         test_queue.add_task('test_task')
 
         # Verify server 0 cannot receive task before being enabled
         assert_that(test_queue.get_task_for_sid(0)).is_equal_to(None)
 
-    def test_default_next_sid(self, test_queue):
+    def test_default_next_sid(self, test_queue: WorkQueue) -> None:
         # Verify next sid is None by default
         assert_that(test_queue.next_sid).is_equal_to(None)
 
-    def test_set_next_worker(self, test_queue):
+    def test_set_next_worker(self, test_queue: WorkQueue) -> None:
         # Set next worker
         test_queue.set_next_worker(5)
 
         # Verify operation succeeded
         assert_that(test_queue.next_sid).is_equal_to(5)
 
-    def test_illegal_set_next_worker(self, test_queue):
+    def test_illegal_set_next_worker(self, test_queue: WorkQueue) -> None:
         # Set next worker
         test_queue.set_next_worker(5)
 
@@ -52,21 +53,27 @@ class TestWorkQueue:
         test_queue.set_next_worker(10)
         assert_that(test_queue.next_sid).is_equal_to(5)
 
-    def test_get_tasks_num(self, test_queue, create_tasks):
+    def test_get_tasks_num(self, test_queue: WorkQueue, create_tasks) -> None:
         # Verify task count is correct
         assert_that(test_queue.get_tasks_num()).is_equal_to(9)
 
-    def test_default_check_end(self, test_queue):
+    def test_default_check_end(self, test_queue: WorkQueue) -> None:
         # Verify un-stopped state
         assert_that(test_queue.check_end()).is_equal_to(False)
 
-    def test_stop_threads_check_end(self, test_queue):
+    def test_stop_threads_check_end(self, test_queue: WorkQueue) -> None:
         # Stop execution
         test_queue.stop_threads()
 
         # Verify stopped state
         assert_that(test_queue.check_end()).is_equal_to(True)
 
-    def test_re_enable(self, test_queue):
-        # todo: Implement this
-        pass
+    def test_re_enable(self, test_queue: WorkQueue) -> None:
+        # Stop execution
+        test_queue.stop_threads()
+
+        # Re-enable execution
+        test_queue.re_enable()
+
+        # Verify un-stopped state
+        assert_that(test_queue.check_end()).is_equal_to(False)
