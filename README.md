@@ -11,3 +11,8 @@
 ## Load Balancer
 - Creates a scheduler thread that selects next server to consume task according to selected policy.
 - Runs endlessly until task queue notifies for shutdown.
+
+## Todos
+
+- [ ] Replace server ids with priority flagged server IP lists
+- [ ] Implement priority scheduling policy 
