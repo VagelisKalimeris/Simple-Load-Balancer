@@ -14,7 +14,7 @@
 
 
 ## Example
-Running [main.py](src%2Fmain.py) gives us a demo round of execution for each scheduling type:
+Running [main][main] script gives us a demo round of execution for each scheduling type:
 
     Round-robin execution:
         Server: 0, served: Task_rr_0.
@@ -41,3 +41,6 @@ Running [main.py](src%2Fmain.py) gives us a demo round of execution for each sch
 ## Todos
 - [ ] Replace server ids with priority flagged server IP lists
 - [ ] Implement priority scheduling policy 
+
+
+[main]: src%2Fmain.py
